@@ -1,10 +1,10 @@
 <?php
 
-namespace Pdffiller\Dump;
+namespace PDFfiller\Dump;
 
 class Dump
 {
-    public function Table($results)
+    public function table($results)
     {
         $var_type = getType($results);
         $rows = 0;
@@ -18,14 +18,14 @@ class Dump
         switch ($var_type) {
             case "struct":
                 foreach ($results as $key => $value) {
-                    $html .= $this->Row($key, $value, $var_type);
+                    $html .= $this->row($key, $value, $var_type);
                 }
                 $rows++;
                 break;
 
             case "array":
                 for ($i = 0; $i < sizeof($results); $i++) {
-                    $html .= $this->Row($i, $results[$i], $var_type);
+                    $html .= $this->row($i, $results[$i], $var_type);
                 }
                 $rows++;
                 break;
@@ -65,13 +65,13 @@ class Dump
                     $object_vars = get_object_vars($results);
 
                     foreach ($object_vars as $key => $value) {
-                        $html .= $this->Row($key, $value, $var_type);
+                        $html .= $this->row($key, $value, $var_type);
                     }
 
                     $class_methods = get_class_methods($results);
 
                     for ($i = 0; $i < sizeof($class_methods); $i++) {
-                        $html .= $this->Row("method", $class_methods[$i], $var_type);
+                        $html .= $this->row("method", $class_methods[$i], $var_type);
                     }
                 }
 
@@ -82,17 +82,17 @@ class Dump
                 $results = str_replace("<", "&lt;", $results);
                 $results = str_replace(">", "&gt;", $results);
 
-                $html .= $this->Row($var_type, $results);
+                $html .= $this->row($var_type, $results);
                 $rows++;
                 break;
 
             case "boolean":
                 $boolean = ($results) ? "true" : "false";
-                $html .= $this->Row($var_type, $boolean);
+                $html .= $this->row($var_type, $boolean);
                 break;
 
             default:
-                $html .= $this->Row($var_type, $results);
+                $html .= $this->row($var_type, $results);
                 $rows++;
                 break;
         }
@@ -108,7 +108,7 @@ class Dump
         return $html;
     }
 
-    function Row($label, $content, $class = "")
+    public function row($label, $content, $class = "")
     {
         $var_type = getType($content);
         $html = '<tr><th class="header ' . $class . '" onClick=javascript:dump_toggleRow(this);">' . $label . '</th><td>';
@@ -117,7 +117,7 @@ class Dump
             case "struct":
             case "array":
             case "object":
-                $html .= $this->Table($content);
+                $html .= $this->table($content);
                 break;
 
             case "string":
@@ -142,7 +142,7 @@ class Dump
         return $html;
     }
 
-    public function Scripts()
+    public function scripts()
     {
         $html = '
                 <style type="text/css">
@@ -288,13 +288,13 @@ class Dump
         return array_keys($array) !== range(0, count($array) - 1);
     }
 
-    public function Output($var, $exit = false)
+    public function output($var, $exit = false)
     {
         $dump = new self();
 
-        echo $this->Scripts() .
+        echo $this->scripts() .
             '<div class="dump_wrap">' .
-            $this->Table($var) .
+            $this->table($var) .
             '</div>';
 
         if ($exit) {

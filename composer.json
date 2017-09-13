@@ -2,7 +2,7 @@
   "name": "pdffiller/dump",
   "autoload": {
     "psr-4": {
-      "Pdffiller\\Dump\\": "src/"
+      "PDFfiller\\Dump\\": "src/"
     }
   }
 }
