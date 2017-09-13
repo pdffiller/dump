@@ -283,7 +283,7 @@ class Dump
         return $html;
     }
 
-    public function isStruct($array)
+    protected function isStruct($array)
     {
         return array_keys($array) !== range(0, count($array) - 1);
     }
