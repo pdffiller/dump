@@ -1,8 +1,8 @@
 {
-  "name": "DDKaka/dump",
+  "name": "pdffiller/dump",
   "autoload": {
     "psr-4": {
-      "DDKaka\\Dump\\": "src/"
+      "Pdffiller\\Dump\\": "src/"
     }
   }
 }

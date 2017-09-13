@@ -1,6 +1,6 @@
 <?php
 
-namespace DDKaka\Dump;
+namespace Pdffiller\Dump;
 
 class Dump
 {
